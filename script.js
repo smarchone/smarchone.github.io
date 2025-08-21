@@ -1,0 +1,134 @@
+// Share functionality
+document.querySelector('.share-btn').addEventListener('click', async () => {
+    if (navigator.share) {
+        try {
+            await navigator.share({
+                title: 'Anuswar R Rao - Profile',
+                text: 'Check out my profile!',
+                url: window.location.href
+            });
+        } catch (err) {
+            console.log('Error sharing:', err);
+        }
+    } else {
+        // Fallback - copy URL to clipboard
+        navigator.clipboard.writeText(window.location.href);
+        showToast('Link copied to clipboard!');
+    }
+});
+
+// Link menu functionality
+document.querySelectorAll('.link-menu').forEach(menu => {
+    menu.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        // You can add a dropdown menu here
+        showToast('Menu options coming soon!');
+    });
+});
+
+// Smooth hover effects for links
+document.querySelectorAll('.link-item').forEach(link => {
+    link.addEventListener('mouseenter', function() {
+        this.style.transition = 'all 0.3s ease';
+    });
+});
+
+// Toast notification function
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = message;
+    toast.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #333;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 14px;
+        z-index: 1000;
+        animation: slideUp 0.3s ease;
+    `;
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.animation = 'slideDown 0.3s ease';
+        setTimeout(() => {
+            document.body.removeChild(toast);
+        }, 300);
+    }, 2000);
+}
+
+// Add animation keyframes
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideUp {
+        from {
+            transform: translateX(-50%) translateY(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+    }
+    
+    @keyframes slideDown {
+        from {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateX(-50%) translateY(100%);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
+
+// Add ripple effect on link click
+document.querySelectorAll('.link-item').forEach(link => {
+    link.addEventListener('click', function(e) {
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.cssText = `
+            position: absolute;
+            width: ${size}px;
+            height: ${size}px;
+            background: radial-gradient(circle, rgba(142, 155, 184, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            left: ${x}px;
+            top: ${y}px;
+            pointer-events: none;
+            transform: scale(0);
+            animation: ripple 0.8s ease-out;
+        `;
+        
+        this.appendChild(ripple);
+        
+        setTimeout(() => {
+            ripple.remove();
+        }, 800);
+    });
+});
+
+
+// Add ripple animation
+const rippleStyle = document.createElement('style');
+rippleStyle.textContent = `
+    @keyframes ripple {
+        to {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(rippleStyle);
