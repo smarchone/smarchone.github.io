@@ -1,21 +1,21 @@
 // Share functionality
-document.querySelector('.share-btn').addEventListener('click', async () => {
-    if (navigator.share) {
-        try {
-            await navigator.share({
-                title: 'Saikumar Chintada - Profile',
-                text: 'Check out my profile!',
-                url: window.location.href
-            });
-        } catch (err) {
-            console.log('Error sharing:', err);
-        }
-    } else {
-        // Fallback - copy URL to clipboard
-        navigator.clipboard.writeText(window.location.href);
-        showToast('Link copied to clipboard!');
-    }
-});
+// document.querySelector('.share-btn').addEventListener('click', async () => {
+//     if (navigator.share) {
+//         try {
+//             await navigator.share({
+//                 title: 'Saikumar Chintada - Profile',
+//                 text: 'Check out my profile!',
+//                 url: window.location.href
+//             });
+//         } catch (err) {
+//             console.log('Error sharing:', err);
+//         }
+//     } else {
+//         // Fallback - copy URL to clipboard
+//         navigator.clipboard.writeText(window.location.href);
+//         showToast('Link copied to clipboard!');
+//     }
+// });
 
 // Link menu functionality
 document.querySelectorAll('.link-menu').forEach(menu => {
@@ -132,3 +132,79 @@ rippleStyle.textContent = `
     }
 `;
 document.head.appendChild(rippleStyle);
+
+// RSS Feed functionality
+async function fetchRSSFeed() {
+    const rssContainer = document.getElementById('rss-feed');
+    const rssUrl = 'https://smarchone.substack.com/feed';
+    
+    try {
+        // Use RSS to JSON API service to fetch and parse RSS
+        const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+        const response = await fetch(proxyUrl);
+        
+        if (!response.ok) {
+            throw new Error('Failed to fetch RSS feed');
+        }
+        
+        const data = await response.json();
+        
+        if (data.status !== 'ok') {
+            throw new Error('RSS service error');
+        }
+        
+        displayRSSItems(data.items.slice(0, 4)); // Show latest 5 posts
+        
+    } catch (error) {
+        console.error('Error fetching RSS feed:', error);
+        rssContainer.innerHTML = `
+            <div class="rss-error">
+                <i class="fas fa-exclamation-triangle"></i>
+                <p>Unable to load latest posts</p>
+                <a href="https://smarchone.substack.com/" target="_blank" class="visit-substack">
+                    Visit Substack →
+                </a>
+            </div>
+        `;
+    }
+}
+
+function displayRSSItems(items) {
+    const rssContainer = document.getElementById('rss-feed');
+    
+    if (!items || items.length === 0) {
+        rssContainer.innerHTML = `
+            <div class="rss-empty">
+                <p>No posts found</p>
+                <a href="https://smarchone.substack.com/" target="_blank" class="visit-substack">
+                    Visit Substack →
+                </a>
+            </div>
+        `;
+        return;
+    }
+    
+    const rssHTML = items.map(item => {
+        const pubDate = new Date(item.pubDate);
+        const formattedDate = pubDate.toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric'
+        });
+        
+        return `
+            <div class="rss-item">
+                <div class="rss-item-title">
+                    <a href="${item.link}" target="_blank">${item.title}</a>
+                </div>
+                <div class="rss-item-date">${formattedDate}</div>
+            </div>
+        `;
+    }).join('');
+    
+    rssContainer.innerHTML = rssHTML;
+}
+
+// Load RSS feed when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    fetchRSSFeed();
+});
