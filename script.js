@@ -3,7 +3,7 @@ document.querySelector('.share-btn').addEventListener('click', async () => {
     if (navigator.share) {
         try {
             await navigator.share({
-                title: 'Anuswar R Rao - Profile',
+                title: 'Saikumar Chintada - Profile',
                 text: 'Check out my profile!',
                 url: window.location.href
             });
