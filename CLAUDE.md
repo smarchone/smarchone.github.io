@@ -1,0 +1,1 @@
+This is a simple resume landing page where I can introduce myself.
