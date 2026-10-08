@@ -42,7 +42,11 @@ function renderPosts(list, items) {
             time.className = 'post-date';
             time.dateTime = date.toISOString();
             time.textContent = formatDate(date);
-            link.append(time);
+
+            const leader = document.createElement('span');
+            leader.className = 'post-leader';
+            leader.setAttribute('aria-hidden', 'true');
+            link.append(leader, time);
         }
 
         const row = document.createElement('li');
