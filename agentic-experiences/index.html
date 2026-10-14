@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Converse. Simulate. Search.</title>
+<meta name="description" content="Three kinds of rich experience we can build with agents: conversations, simulations and search.">
+<link rel="canonical" href="https://smarchone.github.io/agentic-experiences/">
+<meta name="theme-color" content="#f7f8f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141919" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Converse. Simulate. Search.">
+<meta property="og:description" content="Three kinds of rich experience we can build with agents.">
+<meta property="og:url" content="https://smarchone.github.io/agentic-experiences/">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500&display=swap">
+<style>
+/* Layout: full-width tinted bands, content in a centred column, chips on bands, no borders (Soft Fields). */
+:root {
+  --ground: #f7f8f8;
+  --band-mint: #e9f4f0;
+  --band-sky: #e8f0f8;
+  --band-lilac: #efecf7;
+  --band-grey: #f1f2f2;
+  --chip: #ffffffd9;
+  --chip-solid: #ffffff;
+  --ink: #172120;
+  --muted: #4b5654;
+  --line: #c9d3cf;
+  --accent: #0f6b5c;
+  --accent-ink: #ffffff;
+  --accent-soft: #e1f0ec;
+  --font: "Lexend", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --column: 680px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #141919; --band-mint: #16241f; --band-sky: #152029; --band-lilac: #1d1a28; --band-grey: #1a1f20;
+    --chip: #ffffff0f; --chip-solid: #1d2526; --ink: #e6edeb; --muted: #aab7b4; --line: #3a4743;
+    --accent: #5cc6b0; --accent-ink: #0b1110; --accent-soft: #163029; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #141919; --band-mint: #16241f; --band-sky: #152029; --band-lilac: #1d1a28; --band-grey: #1a1f20;
+  --chip: #ffffff0f; --chip-solid: #1d2526; --ink: #e6edeb; --muted: #aab7b4; --line: #3a4743;
+  --accent: #5cc6b0; --accent-ink: #0b1110; --accent-soft: #163029; color-scheme: dark;
+}
+body { margin: 0; background: var(--ground); color: var(--ink); font: 300 14px/1.7 var(--font); }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+.band { padding-block: 64px; }
+.wrap {
+  max-width: var(--column); margin: 0 auto;
+  padding-left: max(20px, env(safe-area-inset-left, 0px));
+  padding-right: max(20px, env(safe-area-inset-right, 0px));
+  display: flex; flex-direction: column; gap: 24px;
+}
+.mint { background: var(--band-mint); } .sky { background: var(--band-sky); }
+.lilac { background: var(--band-lilac); } .grey { background: var(--band-grey); }
+
+.eyebrow { font-size: 11px; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); }
+h1, h2, h3 { margin: 0; font-weight: 400; text-wrap: balance; }
+h1 { font-size: clamp(32px, 6vw, 46px); line-height: 1.05; letter-spacing: -0.025em; }
+h2 { font-size: clamp(20px, 2.8vw, 24px); line-height: 1.2; letter-spacing: -0.015em; max-width: 760px; }
+h3 { font-size: 15px; font-weight: 500; line-height: 1.35; }
+p { margin: 0; }
+.lead { font-size: 16px; line-height: 1.6; color: var(--muted); max-width: 660px; }
+.note { color: var(--muted); max-width: 720px; }
+
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+.chip { background: var(--chip); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.chip p { color: var(--muted); }
+.chip.hi { background: var(--accent-soft); }
+.chip.hi h3 { color: var(--accent); }
+
+/* hero */
+.hero { padding-block: 80px 64px; }
+.hero .wrap { max-width: var(--column); gap: 20px; }
+.ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.btn { display: inline-flex; align-items: center; min-height: 42px; padding: 0 18px; border-radius: 999px; text-decoration: none; font-weight: 400; }
+.btn.solid { background: var(--accent); color: var(--accent-ink); }
+.btn.soft { background: var(--accent-soft); color: var(--accent); }
+
+/* three kinds */
+.kinds { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+.kind { background: var(--chip-solid); border-radius: 16px; padding: 22px; display: flex; flex-direction: column; gap: 10px; }
+.kind svg { width: 100%; height: auto; max-width: 170px; display: block; }
+.kind .tag { font-size: 12px; color: var(--muted); }
+.kind h3 { font-size: 18px; font-weight: 400; }
+.kind p { color: var(--muted); }
+.kind.hi { box-shadow: inset 0 0 0 2px var(--accent); }
+.g-path { fill: none; stroke: var(--line); stroke-width: 2; }
+.g-acc { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; }
+.g-dot { fill: var(--line); } .g-dot.acc { fill: var(--accent); }
+.g-dash { fill: none; stroke: var(--line); stroke-width: 2; stroke-dasharray: 4 5; }
+
+/* simulation loop */
+.loop { display: flex; flex-wrap: nowrap; align-items: stretch; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.loop li { display: flex; align-items: center; gap: 6px; flex: 1 1 0; min-width: 0; }
+.step { flex: 1; align-self: stretch; background: var(--chip); border-radius: 12px; padding: 10px 10px; min-width: 0; font-size: 12.5px; line-height: 1.4; }
+.step b { display: block; font-weight: 500; }
+.step span { display: block; color: var(--muted); font-size: 11.5px; }
+.step.you { background: var(--accent-soft); box-shadow: inset 0 0 0 2px var(--accent); }
+.arrow { color: var(--muted); flex: none; width: 14px; height: 14px; }
+.loop li:last-child .arrow { display: none; }
+.again { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: 13px; }
+@media (max-width: 560px) {
+  .loop { flex-direction: column; gap: 4px; }
+  .loop li { flex-direction: column; align-items: stretch; }
+  .arrow { align-self: center; transform: rotate(90deg); }
+}
+
+/* build stack */
+.stack { display: flex; flex-direction: column; gap: 10px; }
+.layer { background: var(--chip); border-radius: 14px; padding: 18px 22px; display: grid; grid-template-columns: 120px 1fr; gap: 6px 24px; align-items: baseline; }
+.layer h3 { font-size: 16px; font-weight: 400; }
+.layer p { color: var(--muted); }
+.layer .pills { grid-column: 2; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.pill { font-size: 12px; padding: 3px 12px; border-radius: 999px; background: var(--chip-solid); color: var(--ink); }
+.layer.core { background: var(--accent-soft); box-shadow: inset 0 0 0 2px var(--accent); }
+.layer.core h3 { color: var(--accent); }
+@media (max-width: 600px) { .layer { grid-template-columns: 1fr; } .layer .pills { grid-column: 1; } }
+
+/* links */
+a.chip { text-decoration: none; color: var(--ink); transition: transform .15s ease; }
+a.chip h3 { color: var(--accent); }
+a.chip:hover { transform: translateY(-2px); }
+@media (prefers-reduced-motion: reduce) { a.chip { transition: none; } a.chip:hover { transform: none; } }
+
+footer { padding-block: 88px 104px; }
+footer .wrap { max-width: var(--column); gap: 14px; }
+.closing { font-size: 19px; line-height: 1.4; font-weight: 400; letter-spacing: -0.01em; text-wrap: balance; }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Agentic experiences</div>
+    <h1>Converse. Simulate. Search.</h1>
+    <p class="lead">Agents can give us richer experiences than a chat window: conversations worth sharing, simulations we can walk through, and searches over the paths we didn't take. Each one is a way to learn faster, work faster, and create more value.</p>
+    <div class="ctas">
+      <a class="btn solid" href="https://smarchone.github.io/golden-convo/">Read the conversations</a>
+      <a class="btn soft" href="https://smarchone.github.io/skills">See how they're made</a>
+    </div>
+  </div>
+</header>
+
+<section class="band mint">
+  <div class="wrap">
+    <div class="eyebrow">The problem</div>
+    <h2>The useful part rarely survives the session.</h2>
+    <div class="grid">
+      <div class="chip"><h3>Transcripts nobody opens</h3><p>The question, the wrong turns, the moment it clicks. All of it sits in a log that is never read again.</p></div>
+      <div class="chip"><h3>Postmortems you nod at</h3><p>Accurate, but flat. You read about the 2 a.m. incident. You don't feel it.</p></div>
+      <div class="chip"><h3>One path, never the others</h3><p>Experience shows you what happened. It rarely shows what would have happened if you chose differently.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band sky">
+  <div class="wrap">
+    <div class="eyebrow">Three kinds of experience</div>
+    <h2>Each one shows more of the problem.</h2>
+    <p class="note">None of these is new. This is my attempt to bucket the kinds of rich experiences we can build with agents.</p>
+    <div class="kinds">
+      <article class="kind">
+        <svg viewBox="0 0 220 72" role="img" aria-label="A single path"><path class="g-acc" d="M14 36H196"/><path class="g-acc" d="M188 29l8 7-8 7"/><circle class="g-dot acc" cx="14" cy="36" r="6"/></svg>
+        <div class="tag">Read it</div>
+        <h3>Conversations</h3>
+        <p>One path, captured. A good exchange with an agent is a record of thinking that someone else can pick up later.</p>
+      </article>
+      <article class="kind">
+        <svg viewBox="0 0 220 72" role="img" aria-label="A path that forks where you decide"><path class="g-dash" d="M92 36L196 62"/><path class="g-acc" d="M14 36H92L196 10"/><path class="g-acc" d="M186 8l10 2-6 8"/><circle class="g-dot acc" cx="14" cy="36" r="6"/><circle cx="92" cy="36" r="8" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="2.5"/></svg>
+        <div class="tag">Play it</div>
+        <h3>Simulations</h3>
+        <p>Walk the path yourself. The agent assists by playing the parts around you. You decide what to try.</p>
+      </article>
+      <article class="kind hi">
+        <svg viewBox="0 0 220 72" role="img" aria-label="Many paths, one highlighted"><path class="g-path" d="M14 36L90 14L196 4M90 14L196 26M14 36L90 58L196 68"/><path class="g-acc" d="M14 36L90 58L196 46"/><circle class="g-dot" cx="196" cy="4" r="5"/><circle class="g-dot" cx="196" cy="26" r="5"/><circle class="g-dot" cx="196" cy="68" r="5"/><circle class="g-dot acc" cx="196" cy="46" r="6"/><circle class="g-dot acc" cx="14" cy="36" r="6"/></svg>
+        <div class="tag">Explore it</div>
+        <h3>Search</h3>
+        <p>See the paths you didn't take. Run the simulation many times, vary the choices, and the shape of the problem appears.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="band lilac">
+  <div class="wrap">
+    <div class="eyebrow">Today · Conversations as blog posts</div>
+    <h2>Publish the conversation itself. Let readers bring their own agent.</h2>
+    <div class="grid">
+      <div class="chip"><h3>Saves the exploration</h3><p>Someone already paid for it. Readers start where the conversation ended instead of rediscovering it.</p></div>
+      <div class="chip"><h3>The reasoning is already done</h3><p>The chain of thought is laid out in the transcript. Readers build on it instead of starting from scratch.</p></div>
+      <div class="chip"><h3>Any format you like</h3><p>A summary, a checklist, another language. The reader's agent slices it, and the original stays there to check against.</p></div>
+    </div>
+    <p class="note">Each post is authored before it goes out: reviewed, trimmed and scrubbed of anything private. Read them at <a href="https://smarchone.github.io/golden-convo/">golden-convo</a>. The process is written down as <a href="https://smarchone.github.io/skills">skills</a>, so anyone can share their own.</p>
+  </div>
+</section>
+
+<section class="band grey">
+  <div class="wrap">
+    <div class="eyebrow">Next · Engineering experience as simulations</div>
+    <h2>The hope: next time the pager goes off, it isn't the first time.</h2>
+    <p class="note">Much of what makes an engineer good is experience they can't easily hand over. Postmortems are accurate, but flat. So the incident becomes a playbook, and the playbook becomes something you can play.</p>
+    <ol class="loop" aria-label="How an incident becomes a simulation">
+      <li><div class="step"><b>Real incident</b><span>the 2 a.m. page</span></div><svg class="arrow" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11h14M13 6l5 5-5 5"/></svg></li>
+      <li><div class="step"><b>Playbook</b><span>signals, decisions, outcomes</span></div><svg class="arrow" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11h14M13 6l5 5-5 5"/></svg></li>
+      <li><div class="step"><b>Scenario</b><span>the agent assists</span></div><svg class="arrow" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11h14M13 6l5 5-5 5"/></svg></li>
+      <li><div class="step you"><b>You decide</b><span>what to try</span></div><svg class="arrow" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11h14M13 6l5 5-5 5"/></svg></li>
+      <li><div class="step"><b>See where it leads</b><span>then try another call</span></div></li>
+    </ol>
+    <p class="again"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9a6 6 0 1 0 2-4.5M3 3v3h3"/></svg>Not a quiz. A small, safe version of having been there.</p>
+  </div>
+</section>
+
+<section class="band mint">
+  <div class="wrap">
+    <div class="eyebrow">Where it leads · Search</div>
+    <h2>Search isn't new. Agents bring it to messier problems.</h2>
+    <p class="note">Trying many options and keeping what holds up already powers these fields. Agents bring the pattern to situations that were too messy to simulate before, like an incident. It is only as good as the simulation behind it.</p>
+    <div class="grid">
+      <div class="chip"><h3>Policy simulations</h3><p>See how a rule plays out before it reaches real people.</p></div>
+      <div class="chip"><h3>Hyperparameter and architecture search</h3><p>Explore settings and new architectures for neural networks, LLMs included. For example, <a href="https://github.com/karpathy/autoresearch">karpathy/autoresearch</a>.</p></div>
+      <div class="chip hi"><h3>Engineering incidents</h3><p>Replay an incident many ways and see which calls hold up.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band sky">
+  <div class="wrap">
+    <div class="eyebrow">How I plan to build</div>
+    <h2>A careful core. A community that extends it. A place to share what it makes.</h2>
+    <div class="stack">
+      <div class="layer"><h3>Platform</h3><p>A place to share the content, and the knowledge in it.</p></div>
+      <div class="layer"><h3>Extensions</h3><p>Rich content in many formats. I build the first ones, then open it to early users.</p>
+        <div class="pills"><span class="pill">posts</span><span class="pill">simulations</span><span class="pill">playbooks</span><span class="pill">whatever comes next</span></div></div>
+      <div class="layer core"><h3>Core</h3><p>Often a deterministic tool, high quality and built to be extended. How we play with it can be agent-assisted.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band lilac">
+  <div class="wrap">
+    <div class="eyebrow">The work so far</div>
+    <h2>Built in the open.</h2>
+    <div class="grid">
+      <a class="chip" href="https://smarchone.github.io/golden-convo/"><h3>golden-convo →</h3><p>Agent conversations, shared as blog posts.</p></a>
+      <a class="chip" href="https://smarchone.github.io/skills"><h3>skills →</h3><p>How those conversations are generated, so anyone can repeat it.</p></a>
+      <a class="chip" href="https://smarchone.github.io/sim-xp"><h3>sim-xp →</h3><p>Engineering experiences, shared as simulations.</p></a>
+      <a class="chip" href="https://smarchone.github.io/webmcp-apps"><h3>webmcp-apps →</h3><p>Connect Claude Code to your frontend app via WebMCP, with no backend or API keys.</p></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="closing">Building rich agentic experiences to accelerate learning and value-generation.</p>
+    <p class="note">sai · <a href="https://smarchone.github.io/">smarchone.github.io</a></p>
+  </div>
+</footer>
+</body>
+</html>
