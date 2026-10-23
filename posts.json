@@ -1,1 +1,52 @@
-[]
+[
+  {
+    "title": "Operating Modes to Manage Your Attention",
+    "link": "https://saikumarchintada.medium.com/operating-modes-to-manage-attention-b213fd13625a",
+    "date": "2026-10-23T21:58:15.000Z"
+  },
+  {
+    "title": "Attention Is the Problem, Abstraction Is the Solution",
+    "link": "https://saikumarchintada.medium.com/attention-is-the-problem-abstraction-is-the-solution-6c1d9861dc4b",
+    "date": "2026-10-22T07:03:47.000Z"
+  },
+  {
+    "title": "Your Attention Is the Bottleneck: Rethinking the SDLC for Coding Agents",
+    "link": "https://saikumarchintada.medium.com/your-attention-is-the-bottleneck-rethinking-the-sdlc-for-coding-agents-c1ce733ceed8",
+    "date": "2026-10-22T03:50:27.000Z"
+  },
+  {
+    "title": "The Tool Shapes the Work: Unlocking Rich Agentic Experiences",
+    "link": "https://saikumarchintada.medium.com/the-tool-shapes-the-work-unlocking-rich-agentic-experiences-ef1c26c06266",
+    "date": "2026-10-20T11:53:45.000Z"
+  },
+  {
+    "title": "Type System + Semantic Layer + Coding Agent ?",
+    "link": "https://saikumarchintada.medium.com/type-system-semantic-layer-coding-agent-d0dea5b3e6fa",
+    "date": "2026-02-07T11:56:51.000Z"
+  },
+  {
+    "title": "Software is just another Language (for LLMs)",
+    "link": "https://saikumarchintada.medium.com/software-is-just-another-language-for-llms-b5cec4069b7f",
+    "date": "2026-02-01T22:11:52.000Z"
+  },
+  {
+    "title": "Strategies for setting up K8S cluster on Local Machine",
+    "link": "https://saikumarchintada.medium.com/strategies-for-setting-up-k8s-cluster-on-local-machine-f365f86778fa",
+    "date": "2022-05-03T20:06:53.000Z"
+  },
+  {
+    "title": "Colima — Docker & K8S for local development",
+    "link": "https://saikumarchintada.medium.com/colima-docker-k8s-for-local-development-a67c93b5fc0e",
+    "date": "2022-04-17T15:20:13.000Z"
+  },
+  {
+    "title": "Engineering behind r/place",
+    "link": "https://saikumarchintada.medium.com/engineering-behind-r-place-a7eb53bcf5f1",
+    "date": "2022-04-10T17:47:05.000Z"
+  },
+  {
+    "title": "Lessons learned from Downsizing Mongo 3.6 by removing Shards",
+    "link": "https://saikumarchintada.medium.com/lessons-learned-from-downsizing-mongo-3-6-by-removing-shards-fb7fdf8953dd",
+    "date": "2022-02-22T15:18:09.000Z"
+  }
+]
