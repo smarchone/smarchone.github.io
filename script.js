@@ -1,5 +1,4 @@
-// Latest posts, pulled from the Substack RSS feed via rss2json.
-const FEED = 'https://smarchone.substack.com/feed';
+// Latest posts, read from posts.json (synced from the Substack feed by .github/workflows/sync-posts.yml).
 const MAX_POSTS = 4;
 
 // RSS titles arrive as escaped markup; render them as plain text.
@@ -9,9 +8,8 @@ function toPlainText(value) {
     return decoder.value.trim();
 }
 
-// rss2json returns "2025-08-31 09:12:00", which Safari refuses to parse.
 function parseDate(value) {
-    const date = new Date(String(value || '').replace(' ', 'T'));
+    const date = new Date(value || '');
     return isNaN(date) ? null : date;
 }
 
@@ -36,7 +34,7 @@ function renderPosts(list, items) {
         link.rel = 'noopener';
         link.append(title);
 
-        const date = parseDate(item.pubDate);
+        const date = parseDate(item.date);
         if (date) {
             const time = document.createElement('time');
             time.className = 'post-date';
@@ -71,16 +69,13 @@ async function loadPosts() {
     const timeout = setTimeout(() => controller.abort(), 8000);
 
     try {
-        const url = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(FEED)}`;
-        const response = await fetch(url, { signal: controller.signal });
+        const response = await fetch('posts.json', { signal: controller.signal });
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
         const data = await response.json();
-        if (data.status !== 'ok' || !Array.isArray(data.items)) {
-            throw new Error('Unexpected feed response');
-        }
+        if (!Array.isArray(data)) throw new Error('Unexpected posts.json');
 
-        const items = data.items.filter(item => item && item.link).slice(0, MAX_POSTS);
+        const items = data.filter(item => item && item.link).slice(0, MAX_POSTS);
         if (items.length) {
             renderPosts(list, items);
         } else {
