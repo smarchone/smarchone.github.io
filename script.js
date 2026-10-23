@@ -1,4 +1,4 @@
-// Latest posts, read from posts.json (synced from the Substack feed by .github/workflows/sync-posts.yml).
+// Latest posts, read from posts.json (synced from the Medium feed by .github/workflows/sync-posts.yml).
 const MAX_POSTS = 4;
 
 // RSS titles arrive as escaped markup; render them as plain text.
