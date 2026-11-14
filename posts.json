@@ -1,5 +1,10 @@
 [
   {
+    "title": "Vibes & Micromanagement",
+    "link": "https://saikumarchintada.medium.com/vibes-micromanagement-44dbcf96ed65",
+    "date": "2026-11-14T03:30:07.000Z"
+  },
+  {
     "title": "Operating Modes to Manage Your Attention",
     "link": "https://saikumarchintada.medium.com/operating-modes-to-manage-attention-b213fd13625a",
     "date": "2026-10-23T21:58:15.000Z"
@@ -43,10 +48,5 @@
     "title": "Engineering behind r/place",
     "link": "https://saikumarchintada.medium.com/engineering-behind-r-place-a7eb53bcf5f1",
     "date": "2022-04-10T17:47:05.000Z"
-  },
-  {
-    "title": "Lessons learned from Downsizing Mongo 3.6 by removing Shards",
-    "link": "https://saikumarchintada.medium.com/lessons-learned-from-downsizing-mongo-3-6-by-removing-shards-fb7fdf8953dd",
-    "date": "2022-02-22T15:18:09.000Z"
   }
 ]
