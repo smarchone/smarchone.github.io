@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="canonical" href="https://smarchone.github.io/blog/10x/10x.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Head of Agents">
+<meta property="og:url" content="https://smarchone.github.io/blog/10x/10x.html">
+<title>Head of Agents</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one reading column (~66ch); figures break wider; one interactive ledger is the centrepiece. */
+:root {
+  --bg: #F2F4F7;
+  --surface: #FFFFFF;
+  --fg: #141C28;
+  --muted: #5B6676;
+  --rule: #D6DCE5;
+  --human: #2F43C9;
+  --human-soft: #E3E7FB;
+  --agent: #0B8574;
+  --agent-soft: #DDF2EE;
+  --warn: #C8412F;
+  --warn-soft: #F9E1DD;
+  --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E131A; --surface: #161D27; --fg: #E5EBF2; --muted: #93A0B2; --rule: #2A3442;
+    --human: #8D9BFF; --human-soft: #1E2550; --agent: #3CC4AF; --agent-soft: #0F2E2A;
+    --warn: #FF7B67; --warn-soft: #3A1B17; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E131A; --surface: #161D27; --fg: #E5EBF2; --muted: #93A0B2; --rule: #2A3442;
+  --human: #8D9BFF; --human-soft: #1E2550; --agent: #3CC4AF; --agent-soft: #0F2E2A;
+  --warn: #FF7B67; --warn-soft: #3A1B17; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--body); font-size: 19px; line-height: 1.62;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 56px 96px;
+}
+main { max-width: 860px; margin: 0 auto; display: grid; gap: 28px; }
+.col { max-width: 66ch; width: 100%; margin: 0 auto; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; line-height: 1.08; margin: 0; }
+h1 { font-size: clamp(42px, 8vw, 76px); font-weight: 800; letter-spacing: -0.025em; }
+h1 .h { color: var(--human); } h1 .a { color: var(--agent); }
+h2 { font-size: clamp(26px, 4vw, 34px); font-weight: 700; letter-spacing: -0.01em; margin-top: 28px; }
+p { margin: 0 0 1em; }
+.eyebrow { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.dek { font-size: 22px; color: var(--muted); font-style: italic; margin-top: 18px; }
+.aside { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+a { color: var(--human); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--human); outline-offset: 3px; }
+strong { font-weight: 600; }
+.pull {
+  font-family: var(--display); font-weight: 700; font-size: clamp(24px, 3.6vw, 32px);
+  line-height: 1.2; letter-spacing: -0.01em; margin: 8px 0 18px; text-wrap: balance;
+}
+.pull .h { color: var(--human); } .pull .a { color: var(--agent); }
+
+/* Ledger figure */
+figure { margin: 0; }
+.ledger {
+  background: var(--surface); border: 1px solid var(--rule); border-radius: 14px;
+  padding: 20px; display: grid; gap: 14px;
+}
+.controls { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; font-family: var(--mono); font-size: 13px; }
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; padding: 3px; gap: 3px; }
+.seg button {
+  font: inherit; border: 0; background: transparent; color: var(--muted);
+  padding: 7px 14px; border-radius: 999px; cursor: pointer;
+}
+.seg button[aria-pressed="true"] { background: var(--fg); color: var(--bg); }
+.slider { display: inline-flex; align-items: center; gap: 10px; color: var(--muted); }
+.slider input { accent-color: var(--human); width: 150px; }
+.slider output { color: var(--fg); font-weight: 600; min-width: 1.5ch; font-variant-numeric: tabular-nums; }
+.svgwrap { overflow-x: auto; }
+.svgwrap svg { display: block; width: 100%; min-width: 600px; height: auto; }
+.readout { display: flex; flex-wrap: wrap; gap: 10px 28px; font-family: var(--mono); font-size: 13px; color: var(--muted); }
+.readout b { color: var(--fg); font-variant-numeric: tabular-nums; }
+.readout .bad { color: var(--warn); }
+figcaption { font-family: var(--mono); font-size: 13px; color: var(--muted); line-height: 1.5; }
+.dims { display: grid; gap: 10px; }
+.dims .svgwrap svg { min-width: 520px; }
+
+/* goal vs task */
+.versus { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.card { border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; background: var(--surface); min-width: 0; }
+.card .eyebrow { margin-bottom: 8px; }
+.card.task .eyebrow { color: var(--warn); }
+.card.goal .eyebrow { color: var(--agent); }
+.card pre { margin: 0; white-space: pre-wrap; font-family: var(--mono); font-size: 13.5px; line-height: 1.6; }
+@media (max-width: 620px) { .versus { grid-template-columns: 1fr; } body { font-size: 18px; } }
+
+.rules { list-style: none; padding: 0; margin: 0 0 1em; display: grid; gap: 10px; }
+.rules li { display: grid; grid-template-columns: 92px 1fr; gap: 14px; align-items: baseline; }
+.rules .who { font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.08em; text-transform: uppercase; }
+.rules .who.h { color: var(--human); } .rules .who.a { color: var(--agent); } .rules .who.s { color: var(--muted); }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 24px 0; }
+@media (prefers-reduced-motion: no-preference) { .cell { transition: opacity .25s ease; } }
+</style>
+
+<main>
+  <header class="col">
+    <div class="eyebrow">Notes on working with agents</div>
+    <h1>Head of <span class="a">Agents</span>.<br>Not a faster <span class="h">typist</span>.</h1>
+    <p class="dek">What it actually feels like to be the "10x dev", the agent manager, the person running five projects before lunch.</p>
+  </header>
+
+  <section class="col">
+    <p>People say 10x like it means typing ten times faster. It doesn't. With agents doing the typing, your hands stopped being the limit a while ago. The new limit is your head.</p>
+    <p>So 10x is a different shape of work. You are doing many things at once. Each one stays simple <em>for you</em>, because the complicated part lives somewhere else.</p>
+    <p class="pull">10x is not more output per project.<br>It is more <span class="h">projects per head</span>.</p>
+  </section>
+
+  <figure class="ledger" aria-labelledby="ledger-cap">
+    <img src="10x-side-by-side.gif" width="1200" height="680" alt="Animated diagram with two panels running side by side. In each, two arrows grow upward, one for the human and one for the agent, as project rows stack up. Left, micromanaging: each row is tall with low-level details on the human side, the agent waits, the third project breaks the attention budget and five more wait in a queue. Right, delegating goals: rows are thin on the human side, the agent holds the work, and all eight projects fit." style="width:100%;height:auto;border-radius:8px;display:block">
+    <figcaption id="ledger-cap">Two columns, one row per project. Left: what sits in your head. Right: what sits in the agent's context. The dashed box is your attention budget. Same projects, same clock: micromanaging on the left, delegating goals on the right.</figcaption>
+  </figure>
+
+  <section class="col">
+    <h2>The picture</h2>
+    <p>Draw two arrows growing up the page. One for you, one for the agent. Next to each arrow, a box: the context that piles up on that side as work happens. Every new project stacks another row, and both arrows grow with it.</p>
+    <p>When you micromanage, your box fills with the agent's work. Variable names, import errors, which test to retry. Each row gets tall. By project three you are past the line, and the agent's box sits mostly empty, waiting for your next message.</p>
+    <p>When you delegate goals, the rows on your side stay thin: why this exists, what shape it should take, how you'll know it's done. The heavy context moves to the agent's side, where it belongs. Your box has room for eight rows instead of two.</p>
+    <p>Same person. Same agents. The only thing that changed is where the context lives.</p>
+  </section>
+
+  <section class="col">
+    <h2>Two ways to get stuck</h2>
+    <p>Two numbers matter: how many things you manage, and how long you can keep steering each one. Most of us hit a wall on one of them.</p>
+  </section>
+
+  <figure class="col dims" aria-labelledby="dims-cap">
+    <div class="svgwrap">
+      <svg viewBox="0 0 640 360" role="img" aria-label="Chart. Horizontal axis: how many things you manage. Vertical axis: how long you can steer each one. Micromanaging sits top left: long but few. Vibe coding sits bottom right: many but short. Shared decisions reach the top right: many and long.">
+        <rect x="84" y="40" width="130" height="250" rx="8" fill="var(--human-soft)"/>
+        <text x="149" y="70" text-anchor="middle" fill="var(--human)" font-family="var(--display)" font-weight="700" font-size="16">Micromanage</text>
+        <text x="149" y="92" text-anchor="middle" fill="var(--muted)" font-family="var(--mono)" font-size="12">long, but few</text>
+        <rect x="232" y="226" width="368" height="64" rx="8" fill="var(--warn-soft)"/>
+        <text x="250" y="254" fill="var(--warn)" font-family="var(--display)" font-weight="700" font-size="16">Vibe coding</text>
+        <text x="250" y="274" fill="var(--muted)" font-family="var(--mono)" font-size="12">many, until they drift</text>
+        <rect x="330" y="40" width="270" height="150" rx="8" fill="var(--agent-soft)" stroke="var(--agent)" stroke-width="1.5" stroke-dasharray="6 5"/>
+        <text x="465" y="104" text-anchor="middle" fill="var(--agent)" font-family="var(--display)" font-weight="700" font-size="16">Head of agents</text>
+        <text x="465" y="126" text-anchor="middle" fill="var(--muted)" font-family="var(--mono)" font-size="12">many, for long</text>
+        <path d="M222 120 C 270 120, 290 115, 318 115" fill="none" stroke="var(--agent)" stroke-width="1.8"/>
+        <path d="M311 109 L319 115 L311 121" fill="none" stroke="var(--agent)" stroke-width="1.8"/>
+        <path d="M420 218 C 420 206, 430 204, 430 198" fill="none" stroke="var(--agent)" stroke-width="1.8"/>
+        <path d="M424 204 L430 197 L436 204" fill="none" stroke="var(--agent)" stroke-width="1.8"/>
+        <line x1="70" y1="304" x2="612" y2="304" stroke="var(--fg)" stroke-width="1.5"/>
+        <path d="M604 298 L613 304 L604 310" fill="none" stroke="var(--fg)" stroke-width="1.5"/>
+        <line x1="70" y1="304" x2="70" y2="28" stroke="var(--fg)" stroke-width="1.5"/>
+        <path d="M64 36 L70 27 L76 36" fill="none" stroke="var(--fg)" stroke-width="1.5"/>
+        <text x="612" y="330" text-anchor="end" fill="var(--muted)" font-family="var(--mono)" font-size="12">how many things you manage</text>
+        <text x="50" y="304" transform="rotate(-90 50 304)" fill="var(--muted)" font-family="var(--mono)" font-size="12">how long you can steer each</text>
+      </svg>
+    </div>
+    <figcaption id="dims-cap">Micromanaging blocks the first axis. Vibe coding blocks the second. Shared decisions move you up and to the right.</figcaption>
+  </figure>
+
+  <section class="col">
+    <p><strong>Micromanaging caps how many.</strong> You can steer one project for a long time, because you are in every detail. But every detail is yours to carry, so the second and third projects don't fit.</p>
+    <p><strong>Vibe coding caps how long.</strong> It flies for the first hour. Then decisions pile up, and they live in two bad places: old prompts and your head. The agent forgets one, you correct it, it forgets another. You end up fighting the agent prompt by prompt, and the project stalls.</p>
+    <p>The fix for both is the same. Put the decisions in one central place that you and the agent both read. A decision repo is that shared abstraction. It gives a vibe coder enough control to steer the project for longer, and it lets a micromanager stop carrying the details.</p>
+  </section>
+
+  <section class="col">
+    <h2>Scale yourself</h2>
+    <p class="pull">Doing more by doing less.</p>
+    <p>You can't grow your head. You can change what goes into it. Two moves:</p>
+    <ul class="rules">
+      <li><span class="who h">Hold</span><span><strong>Many simple things.</strong> A 10x head is a list of short, clear rows. Not one deep, tangled one. If a project needs you to remember forty details, it is designed wrong.</span></li>
+      <li><span class="who warn" style="color:var(--warn)">Guard</span><span><strong>Stop attention leaking.</strong> Every "quick look" at a diff you didn't need to see, every ping you answer about a detail the agent could decide, drains the budget for the other rows.</span></li>
+    </ul>
+  </section>
+
+  <section class="col">
+    <h2>Think like an executive</h2>
+    <p>An executive doesn't rewrite the slide deck. They decide what the deck needs to convince people of, and review it when it's done. Delegating goals is the norm. Diving into low-level details is the exception, and they notice when they're doing it.</p>
+  </section>
+
+  <div class="col versus">
+    <div class="card task">
+      <div class="eyebrow">A task</div>
+      <pre>Add a retry loop to
+charge() with 3 attempts,
+exponential backoff, and
+log on final failure.</pre>
+    </div>
+    <div class="card goal">
+      <div class="eyebrow">A goal</div>
+      <pre>Failed card charges
+shouldn't lose us customers.
+Transient errors recover
+on their own. Done when
+dunning tickets drop.</pre>
+    </div>
+  </div>
+
+  <section class="col">
+    <p>The task fixes one function. The goal hands over a problem, and the agent can find the five places it actually shows up. You stay at the altitude of <em>why</em> and <em>done</em>. The agent owns <em>how</em>.</p>
+  </section>
+
+  <section class="col">
+    <h2>Design the division of labour</h2>
+    <p>This doesn't happen by accident. Left alone, every session drifts toward micromanagement, because the prompt is the only place your decisions can live. So you design the split up front:</p>
+    <ul class="rules">
+      <li><span class="who h">You keep</span><span>Decisions. What we're building, what we're not, the calls already made and why.</span></li>
+      <li><span class="who a">Agents get</span><span>Execution, with real autonomy inside those decisions. Not unlimited. Enough that they don't need to ask.</span></li>
+      <li><span class="who s">Shared</span><span>A central decision repo both sides read. It makes your decisions quick, because the context is already there. It makes the agent's execution sound, because the direction is already there.</span></li>
+    </ul>
+    <p>That shared layer is the thin band in the middle of the picture. Without it, the only bridge between the two columns is you, typing. With it, each row connects on its own.</p>
+    <p class="pull">You decide. <span class="a">Agents execute.</span> The shared context connects them.</p>
+    <hr>
+    <p class="aside">The earlier post on why prompts swing between vibes and micromanagement: <a href="https://smarchone.substack.com/p/vibes-and-micromanagement">Vibes and micromanagement</a>.</p>
+  </section>
+</main>
+
