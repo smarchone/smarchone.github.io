@@ -101,7 +101,16 @@ figcaption { font-family: var(--mono); font-size: 13px; color: var(--muted); lin
 .card.task .eyebrow { color: var(--warn); }
 .card.goal .eyebrow { color: var(--agent); }
 .card pre { margin: 0; white-space: pre-wrap; font-family: var(--mono); font-size: 13.5px; line-height: 1.6; }
-@media (max-width: 620px) { .versus { grid-template-columns: 1fr; } body { font-size: 18px; } }
+.ledger img { width: 100%; height: auto; border-radius: 8px; display: block; }
+.gif-stack { display: none; }
+@media (max-width: 620px) {
+  .versus { grid-template-columns: 1fr; } body { font-size: 18px; }
+  /* Mobile: the side-by-side GIF gets too small, so show its two halves stacked */
+  .ledger .gif-wide { display: none; }
+  .gif-stack { display: grid; gap: 14px; }
+  .svgwrap { overflow-x: visible; }
+  .svgwrap svg, .dims .svgwrap svg { min-width: 0; }
+}
 
 .rules { list-style: none; padding: 0; margin: 0 0 1em; display: grid; gap: 10px; }
 .rules li { display: grid; grid-template-columns: 92px 1fr; gap: 14px; align-items: baseline; }
@@ -125,7 +134,11 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: 24px 0; }
   </section>
 
   <figure class="ledger" aria-labelledby="ledger-cap">
-    <img src="10x-side-by-side.gif" width="1200" height="680" alt="Animated diagram with two panels running side by side. In each, two arrows grow upward, one for the human and one for the agent, as project rows stack up. Left, micromanaging: each row is tall with low-level details on the human side, the agent waits, the third project breaks the attention budget and five more wait in a queue. Right, delegating goals: rows are thin on the human side, the agent holds the work, and all eight projects fit." style="width:100%;height:auto;border-radius:8px;display:block">
+    <img src="10x-side-by-side.gif" width="1200" height="680" alt="Animated diagram with two panels running side by side. In each, two arrows grow upward, one for the human and one for the agent, as project rows stack up. Left, micromanaging: each row is tall with low-level details on the human side, the agent waits, the third project breaks the attention budget and five more wait in a queue. Right, delegating goals: rows are thin on the human side, the agent holds the work, and all eight projects fit." class="gif-wide">
+    <div class="gif-stack">
+      <img src="10x-left.gif" width="598" height="680" alt="Animated diagram, micromanaging: two arrows grow upward, one for the human and one for the agent. Each project row is tall with low-level details on the human side while the agent waits; the third project breaks the attention budget and five more wait in a queue." loading="lazy">
+      <img src="10x-right.gif" width="598" height="680" alt="Animated diagram, delegating goals: rows stay thin on the human side, the agent holds the work, and all eight projects fit inside the attention budget." loading="lazy">
+    </div>
     <figcaption id="ledger-cap">Two columns, one row per project. Left: what sits in your head. Right: what sits in the agent's context. The dashed box is your attention budget. Same projects, same clock: micromanaging on the left, delegating goals on the right.</figcaption>
   </figure>
 
