@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<link rel="canonical" href="https://smarchone.github.io/blog/10x/10x.html">
+<link rel="canonical" href="https://smarchone.github.io/10x/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Head of Agents">
-<meta property="og:url" content="https://smarchone.github.io/blog/10x/10x.html">
-<title>Head of Agents</title>
+<meta property="og:title" content="Steer Decisions, Not Prompts">
+<meta property="og:url" content="https://smarchone.github.io/10x/">
+<title>Steer Decisions, Not Prompts</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap">
@@ -123,31 +123,33 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: 24px 0; }
 <main>
   <header class="col">
     <div class="eyebrow">Notes on working with agents</div>
-    <h1>Head of <span class="a">Agents</span>.<br>Not a faster <span class="h">typist</span>.</h1>
-    <p class="dek">What it actually feels like to be the "10x dev", the agent manager, the person running five projects before lunch.</p>
+    <h1>Steer <span class="h">decisions</span>.<br>Not <span class="a">prompts</span>.</h1>
+    <p class="dek">The 10x dev isn't a 10x prompter. It's a 10x value generator. What separates them is where the attention goes.</p>
   </header>
 
   <section class="col">
-    <p>People say 10x like it means typing ten times faster. It doesn't. With agents doing the typing, your hands stopped being the limit a while ago. The new limit is your head.</p>
-    <p>So 10x is a different shape of work. You are doing many things at once. Each one stays simple <em>for you</em>, because the complicated part lives somewhere else.</p>
-    <p class="pull">10x is not more output per project.<br>It is more <span class="h">projects per head</span>.</p>
+    <ul class="rules">
+      <li><span class="who" style="color:var(--warn)">Problem</span><span><strong>Human attention is limited.</strong> Spending it on things an agent can do well is a bad investment.</span></li>
+      <li><span class="who a">Idea</span><span><strong>Invest attention in decisions.</strong> We scale ourselves by spending it on the decisions that let agents carry the work on their own.</span></li>
+    </ul>
+    <p>A 10x prompter fires off more prompts and watches every reply. Their attention goes into the agent's work. A 10x value generator makes the calls once, writes them down, and lets the agents run. Their attention goes into the decisions only they can make.</p>
+    <p class="pull">A prompter <span class="h">spends</span> attention.<br>A value generator <span class="a">invests</span> it.</p>
   </section>
 
   <figure class="ledger" aria-labelledby="ledger-cap">
-    <img src="10x-side-by-side.gif" width="1200" height="680" alt="Animated diagram with two panels running side by side. In each, two arrows grow upward, one for the human and one for the agent, as project rows stack up. Left, micromanaging: each row is tall with low-level details on the human side, the agent waits, the third project breaks the attention budget and five more wait in a queue. Right, delegating goals: rows are thin on the human side, the agent holds the work, and all eight projects fit." class="gif-wide">
+    <img src="10x-side-by-side.gif" width="1200" height="680" alt="Animated diagram with two panels running side by side. In each, two arrows grow upward, one for the human and one for the agent, as rows stack up, one per thing. Left, micromanaging: each row is tall with low-level details on the human side, the agent waits, the third thing breaks the attention budget and five more wait in a queue. Right, delegating goals: rows are thin on the human side, the agent holds the work, and all eight things fit." class="gif-wide">
     <div class="gif-stack">
-      <img src="10x-left.gif" width="598" height="680" alt="Animated diagram, micromanaging: two arrows grow upward, one for the human and one for the agent. Each project row is tall with low-level details on the human side while the agent waits; the third project breaks the attention budget and five more wait in a queue." loading="lazy">
-      <img src="10x-right.gif" width="598" height="680" alt="Animated diagram, delegating goals: rows stay thin on the human side, the agent holds the work, and all eight projects fit inside the attention budget." loading="lazy">
+      <img src="10x-left.gif" width="598" height="680" alt="Animated diagram, micromanaging: two arrows grow upward, one for the human and one for the agent. Each row is tall with low-level details on the human side while the agent waits; the third thing breaks the attention budget and five more wait in a queue." loading="lazy">
+      <img src="10x-right.gif" width="598" height="680" alt="Animated diagram, delegating goals: rows stay thin on the human side, the agent holds the work, and all eight things fit inside the attention budget." loading="lazy">
     </div>
-    <figcaption id="ledger-cap">Two columns, one row per project. Left: what sits in your head. Right: what sits in the agent's context. The dashed box is your attention budget. Same projects, same clock: micromanaging on the left, delegating goals on the right.</figcaption>
+    <figcaption id="ledger-cap">Two columns, one row per thing. Left: what sits in your head. Right: what sits in the agent's context. The dashed box is your attention budget. Same things, same clock: micromanaging on the left, delegating goals on the right.</figcaption>
   </figure>
 
   <section class="col">
     <h2>The picture</h2>
-    <p>Draw two arrows growing up the page. One for you, one for the agent. Next to each arrow, a box: the context that piles up on that side as work happens. Every new project stacks another row, and both arrows grow with it.</p>
-    <p>When you micromanage, your box fills with the agent's work. Variable names, import errors, which test to retry. Each row gets tall. By project three you are past the line, and the agent's box sits mostly empty, waiting for your next message.</p>
-    <p>When you delegate goals, the rows on your side stay thin: why this exists, what shape it should take, how you'll know it's done. The heavy context moves to the agent's side, where it belongs. Your box has room for eight rows instead of two.</p>
-    <p>Same person. Same agents. The only thing that changed is where the context lives.</p>
+    <p>When you micromanage, your mind fills with the agent's work. Variable names, import errors, which test to retry. Each row gets tall. By the third thing you are past the line, and the agent's box sits mostly empty, waiting for your next message.</p>
+    <p>When you delegate goals, the rows on your side stay thin: why this exists, what shape it should take, how you'll know it's done. The heavy context moves to the agent's side, where it belongs. Your mind has room for eight rows instead of two.</p>
+    <p>Same person. Same agents. The only thing that changed is where the attention is invested and how decisions are shared.</p>
   </section>
 
   <section class="col">
@@ -183,9 +185,9 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: 24px 0; }
   </figure>
 
   <section class="col">
-    <p><strong>Micromanaging caps how many.</strong> You can steer one project for a long time, because you are in every detail. But every detail is yours to carry, so the second and third projects don't fit.</p>
-    <p><strong>Vibe coding caps how long.</strong> It flies for the first hour. Then decisions pile up, and they live in two bad places: old prompts and your head. The agent forgets one, you correct it, it forgets another. You end up fighting the agent prompt by prompt, and the project stalls.</p>
-    <p>The fix for both is the same. Put the decisions in one central place that you and the agent both read. A decision repo is that shared abstraction. It gives a vibe coder enough control to steer the project for longer, and it lets a micromanager stop carrying the details.</p>
+    <p><strong>Micromanaging caps how many.</strong> You can steer one thing for a long time, because you are in every detail. But every detail is yours to carry, so the second and third things don't fit.</p>
+    <p><strong>Vibe coding caps how long.</strong> It flies for the first hour. Then decisions pile up, and they live in two bad places: old prompts and your head. The agent forgets one, you correct it, it forgets another. You end up fighting the agent prompt by prompt, and the work stalls.</p>
+    <p>The fix for both is the same. Put the decisions in one central place that you and the agent both read. A decision repo is that shared abstraction. It gives a vibe coder enough control to steer each thing for longer, and it lets a micromanager stop carrying the details.</p>
   </section>
 
   <section class="col">
@@ -193,7 +195,7 @@ hr { border: 0; border-top: 1px solid var(--rule); margin: 24px 0; }
     <p class="pull">Doing more by doing less.</p>
     <p>You can't grow your head. You can change what goes into it. Two moves:</p>
     <ul class="rules">
-      <li><span class="who h">Hold</span><span><strong>Many simple things.</strong> A 10x head is a list of short, clear rows. Not one deep, tangled one. If a project needs you to remember forty details, it is designed wrong.</span></li>
+      <li><span class="who h">Hold</span><span><strong>Many simple things.</strong> A 10x head is a list of short, clear rows. Not one deep, tangled one. If a thing needs you to remember forty details, it is designed wrong.</span></li>
       <li><span class="who warn" style="color:var(--warn)">Guard</span><span><strong>Stop attention leaking.</strong> Every "quick look" at a diff you didn't need to see, every ping you answer about a detail the agent could decide, drains the budget for the other rows.</span></li>
     </ul>
   </section>
@@ -239,4 +241,3 @@ dunning tickets drop.</pre>
     <p class="aside">The earlier post on why prompts swing between vibes and micromanagement: <a href="https://smarchone.substack.com/p/vibes-and-micromanagement">Vibes and micromanagement</a>.</p>
   </section>
 </main>
-
